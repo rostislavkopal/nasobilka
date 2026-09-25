@@ -361,7 +361,7 @@ function Setup(props: {
 
         <button
           onClick={props.onStart}
-          className="mt-9 w-full rounded-btn bg-brand py-5 font-display text-2xl font-bold text-brand-foreground transition hover:brightness-110 active:scale-[0.99]"
+          className="mt-9 w-full rounded-btn bg-success py-4 font-display text-lg font-bold text-success-foreground transition sm:py-5 sm:text-2xl hover:brightness-110 active:scale-[0.99]"
         >
           Spustit test ({QUESTIONS_PER_TEST} příkladů)
         </button>
