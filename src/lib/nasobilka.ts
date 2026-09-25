@@ -10,6 +10,8 @@ export interface Problem {
   right: number;
   answer: number;
   options: number[];
+  /** 0 = původní příklad, 1+ = opakování po chybě v témže testu */
+  retry: number;
 }
 
 export interface Attempt {
@@ -25,6 +27,8 @@ export interface TestOptions {
 
 export const QUESTIONS_PER_TEST = 20;
 export const OPTION_COUNT = 5;
+/** Za kolik příkladů se chybný příklad vrátí k opakování. */
+export const RETRY_GAP = 3;
 
 const randInt = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -88,7 +92,7 @@ export function createProblem({ operations, maxFactor }: TestOptions): Problem {
     op === "mul"
       ? { a, b, op, left: a, right: b, answer: a * b }
       : { a, b, op, left: a * b, right: b, answer: a };
-  return { id: uuid(), ...base, options: buildOptions(base) };
+  return { id: uuid(), ...base, options: buildOptions(base), retry: 0 };
 }
 
 const keyOf = (p: Problem) => `${p.op}:${p.left}:${p.right}`;
@@ -107,14 +111,20 @@ export function createTest(opts: TestOptions, count = QUESTIONS_PER_TEST): Probl
   return out;
 }
 
-export function repeatWrong(attempts: Attempt[]): Problem[] {
-  return shuffle(
-    attempts
-      .filter((t) => !t.correct)
-      .map(({ problem: p }) => ({ ...p, id: uuid(), options: buildOptions(p) })),
-  );
+/** Nová instance chybného příkladu (nové id, znovu zamíchané možnosti). */
+export const retryOf = (p: Problem): Problem => ({
+  ...p,
+  id: uuid(),
+  options: buildOptions(p),
+  retry: p.retry + 1,
+});
+
+/** Zařadí opakování chybného příkladu RETRY_GAP pozic za aktuální (nebo na konec fronty). */
+export function scheduleRetry(problems: Problem[], index: number, p: Problem): Problem[] {
+  const at = Math.min(index + 1 + RETRY_GAP, problems.length);
+  return [...problems.slice(0, at), retryOf(p), ...problems.slice(at)];
 }
 
-export const opSymbol = (op: Operation) => (op === "mul" ? "×" : "÷");
+export const opSymbol = (op: Operation) => (op === "mul" ? "·" : ":");
 
 export const formatProblem = (p: Problem) => `${p.left} ${opSymbol(p.op)} ${p.right}`;

@@ -8,7 +8,7 @@ import {
   createTest,
   formatProblem,
   opSymbol,
-  repeatWrong,
+  scheduleRetry,
 } from "./lib/nasobilka";
 
 type Phase = "setup" | "quiz" | "results";
@@ -28,7 +28,6 @@ export default function App() {
   const [problems, setProblems] = useState<Problem[]>([]);
   const [index, setIndex] = useState(0);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
-  const [round, setRound] = useState(0);
   const [typed, setTyped] = useState("");
   const [feedback, setFeedback] = useState<Feedback>(null);
   const timer = useRef<number | undefined>(undefined);
@@ -36,19 +35,17 @@ export default function App() {
   const clearTimer = () => window.clearTimeout(timer.current);
   useEffect(() => clearTimer, []);
 
-  const begin = (list: Problem[], nextRound: number) => {
+  const begin = (list: Problem[]) => {
     clearTimer();
     setProblems(list);
     setIndex(0);
     setAttempts([]);
-    setRound(nextRound);
     setTyped("");
     setFeedback(null);
     setPhase("quiz");
   };
 
-  const startTest = () => begin(createTest({ operations, maxFactor }), 0);
-  const startRepeat = () => begin(repeatWrong(attempts), round + 1);
+  const startTest = () => begin(createTest({ operations, maxFactor }));
   const onHome = () => {
     clearTimer();
     setFeedback(null);
@@ -63,17 +60,20 @@ export default function App() {
       const correct = value === problem.answer;
       setAttempts((prev) => [...prev, { problem, given: value, correct }]);
       setFeedback({ given: value, correct });
+      // chybný příklad se vrátí o pár příkladů později, dokud není správně
+      const queue = correct ? problems : scheduleRetry(problems, index, problem);
+      if (!correct) setProblems(queue);
       timer.current = window.setTimeout(
         () => {
           setFeedback(null);
           setTyped("");
-          if (index + 1 >= problems.length) setPhase("results");
+          if (index + 1 >= queue.length) setPhase("results");
           else setIndex(index + 1);
         },
         correct ? FEEDBACK_OK_MS : FEEDBACK_ERR_MS,
       );
     },
-    [feedback, problem, index, problems.length],
+    [feedback, problem, index, problems],
   );
 
   const typeDigit = useCallback(
@@ -104,14 +104,17 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKey);
   }, [phase, mode, typeDigit, backspace, confirmTyped]);
 
-  const correctCount = attempts.filter((a) => a.correct).length;
-  const wrong = attempts.filter((a) => !a.correct);
+  // skóre se počítá z prvních pokusů; opakování slouží jen k procvičení
+  const firstAttempts = attempts.filter((a) => a.problem.retry === 0);
+  const correctCount = firstAttempts.filter((a) => a.correct).length;
+  const wrong = firstAttempts.filter((a) => !a.correct);
+  const isFixed = (p: Problem) =>
+    attempts.some((a) => a.correct && a.problem.retry > 0 && formatProblem(a.problem) === formatProblem(p));
 
   return (
     <div className="min-h-screen">
       <Header
-        round={round}
-        score={phase === "setup" ? null : { correct: correctCount, total: attempts.length }}
+        score={phase === "setup" ? null : { correct: correctCount, total: firstAttempts.length }}
         onHome={phase === "setup" ? undefined : onHome}
       />
       <main className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6">
@@ -152,8 +155,15 @@ export default function App() {
               <Card className="p-6 sm:p-10">
                 <div className="flex items-center justify-between">
                   <span className="label-caps">Příklad {index + 1}</span>
-                  <span className="rounded-full bg-accent px-3 py-1 text-sm font-semibold text-accent-foreground">
-                    {problem.op === "mul" ? "Násobení" : "Dělení"}
+                  <span className="flex flex-wrap justify-end gap-2">
+                    {problem.retry > 0 && (
+                      <span className="rounded-full bg-danger-soft px-3 py-1 text-sm font-semibold text-danger">
+                        Oprava chyby
+                      </span>
+                    )}
+                    <span className="rounded-full bg-accent px-3 py-1 text-sm font-semibold text-accent-foreground">
+                      {problem.op === "mul" ? "Násobení" : "Dělení"}
+                    </span>
                   </span>
                 </div>
 
@@ -174,16 +184,24 @@ export default function App() {
 
               {wrong.length > 0 && (
                 <Card>
-                  <div className="label-caps mb-3">Chyby v tomto kole</div>
+                  <div className="label-caps mb-1">Chyby v tomto testu</div>
+                  <p className="mb-3 text-sm text-muted-foreground">Chybné příklady se ti za chvíli vrátí k opravě.</p>
                   <ul className="flex flex-wrap gap-2">
-                    {wrong.map((a) => (
-                      <li
-                        key={a.problem.id}
-                        className="rounded-btn border-2 border-danger/30 bg-danger-soft px-3 py-1.5 font-display font-semibold"
-                      >
-                        {formatProblem(a.problem)} = <span className="text-success">{a.problem.answer}</span>
-                      </li>
-                    ))}
+                    {wrong.map((a) => {
+                      const fixed = isFixed(a.problem);
+                      return (
+                        <li
+                          key={a.problem.id}
+                          className={cx(
+                            "rounded-btn border-2 px-3 py-1.5 font-display font-semibold",
+                            fixed ? "border-success/40 bg-success-soft" : "border-danger/30 bg-danger-soft",
+                          )}
+                        >
+                          {formatProblem(a.problem)} = <span className="text-success">{a.problem.answer}</span>
+                          {fixed && <span className="ml-1.5 text-success">✓ opraveno</span>}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </Card>
               )}
@@ -193,9 +211,8 @@ export default function App() {
 
         {phase === "results" && (
           <Results
-            attempts={attempts}
-            round={round}
-            onRepeat={startRepeat}
+            attempts={firstAttempts}
+            retries={attempts.length - firstAttempts.length}
             onNew={startTest}
             onHome={onHome}
           />
@@ -214,11 +231,9 @@ function Card({ className, children }: { className?: string; children: React.Rea
 }
 
 function Header({
-  round,
   score,
   onHome,
 }: {
-  round: number;
   score: { correct: number; total: number } | null;
   onHome?: () => void;
 }) {
@@ -227,13 +242,11 @@ function Header({
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
         <button onClick={onHome} disabled={!onHome} className="flex items-center gap-3 text-left">
           <span className="grid size-10 place-items-center rounded-xl bg-brand font-display text-2xl font-bold text-brand-foreground">
-            ×
+            ·
           </span>
           <span>
             <span className="block font-display text-xl font-bold leading-tight">Násobilka</span>
-            <span className="block text-sm text-muted-foreground">
-              {round > 0 ? `Opakování ${round}` : "Procvičování násobení a dělení"}
-            </span>
+            <span className="block text-sm text-muted-foreground">Procvičování násobení a dělení</span>
           </span>
         </button>
         {score && (
@@ -336,8 +349,8 @@ function Setup(props: {
 
         <div className="label-caps mb-3 mt-7">Počítáme</div>
         <div className="flex flex-wrap gap-3">
-          <Chip active={operations.includes("mul")} onClick={() => toggleOp("mul")}>Násobení ×</Chip>
-          <Chip active={operations.includes("div")} onClick={() => toggleOp("div")}>Dělení ÷</Chip>
+          <Chip active={operations.includes("mul")} onClick={() => toggleOp("mul")}>Násobení ·</Chip>
+          <Chip active={operations.includes("div")} onClick={() => toggleOp("div")}>Dělení :</Chip>
         </div>
 
         <div className="label-caps mb-3 mt-7">Rozsah</div>
@@ -513,14 +526,12 @@ function Keypad({
 
 function Results({
   attempts,
-  round,
-  onRepeat,
+  retries,
   onNew,
   onHome,
 }: {
   attempts: Attempt[];
-  round: number;
-  onRepeat: () => void;
+  retries: number;
   onNew: () => void;
   onHome: () => void;
 }) {
@@ -533,11 +544,17 @@ function Results({
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
       <Card className="p-6 text-center sm:p-10">
-        <div className="label-caps">{round > 0 ? `Vyhodnocení – opakování ${round}` : "Vyhodnocení"}</div>
+        <div className="label-caps">Vyhodnocení</div>
         <div className="mt-3 font-display text-7xl font-bold sm:text-8xl">
           {correct} <span className="text-4xl text-muted-foreground sm:text-5xl">z {attempts.length}</span>
         </div>
         <p className="mt-3 text-xl font-semibold">{praise}</p>
+        {wrong.length > 0 && (
+          <p className="mt-2 text-muted-foreground">
+            Všechny chyby jsi během testu opravil(a)
+            {retries > wrong.length ? ` (celkem ${retries} opakování)` : ""}.
+          </p>
+        )}
 
         <div className="mx-auto mt-8 grid max-w-md grid-cols-5 gap-2 sm:grid-cols-10">
           {attempts.map((a, i) => (
@@ -555,14 +572,6 @@ function Results({
         </div>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          {wrong.length > 0 && (
-            <button
-              onClick={onRepeat}
-              className="flex-1 rounded-btn bg-danger py-4 font-display text-xl font-bold text-danger-foreground transition hover:brightness-110"
-            >
-              Procvičit chyby ({wrong.length})
-            </button>
-          )}
           <button
             onClick={onNew}
             className="flex-1 rounded-btn bg-brand py-4 font-display text-xl font-bold text-brand-foreground transition hover:brightness-110"
