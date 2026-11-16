@@ -43,9 +43,9 @@ export function Dashboard({
               Jdeme počítat <ArrowRight className="size-5" />
             </button>
           </div>
-          <div className="relative mx-auto w-56 sm:w-64 md:w-80">
-            <div className="absolute inset-[12%] -z-10 rounded-full bg-[radial-gradient(circle,rgba(255,79,216,0.45),rgba(139,92,246,0.25)_45%,transparent_70%)] blur-2xl" />
-            <Mascot kind="goat" eager className="anim-bob w-full" />
+          <div className="relative mx-auto w-64 sm:w-72 md:w-[25rem]">
+            <div className="absolute inset-[14%] -z-10 rounded-full bg-[radial-gradient(circle,rgba(255,79,216,0.45),rgba(139,92,246,0.25)_45%,transparent_70%)] blur-2xl" />
+            <Mascot kind="pig" eager className="anim-bob w-full" />
           </div>
         </div>
       </section>

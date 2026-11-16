@@ -9,7 +9,7 @@ přednost operací, převody jednotek délky a slovní úlohy.
 
 ### Rozcestník
 
-Nahoře úvodní pás s barevnou kozou a tlačítkem „Jdeme počítat“, pod ním pět dlaždic s tématy
+Nahoře úvodní pás s barevným prasátkem v kšiltovce a tlačítkem „Jdeme počítat“, pod ním pět dlaždic s tématy
 a pás s nasbíranými hvězdičkami. V hlavičce je navigace **Procvičování** / **Můj pokrok**.
 Stránka **Můj pokrok** ukazuje u každého tématu počet tréninků, nejlepší výsledek a hvězdičky.
 
@@ -166,6 +166,8 @@ Tmavý neonový motiv odvozený z ilustrací zvířat. Tokeny v `src/styles.css`
 Písmo Nunito. Animace `anim-pop`, `anim-shake`, `anim-star`, `anim-rise`, `anim-bob` respektují
 `prefers-reduced-motion`.
 
-**Ilustrace** (`src/assets/`): `koza-zepredu.webp` (rozcestník), `krava.webp` (vyhodnocení),
-`koza-profil.webp` (nastavení, Můj pokrok). Originály (~4000 px PNG) jsou zmenšené na ≤ 900 px
+**Ilustrace** (`src/assets/`): `prase.webp` (rozcestník), `koza-profil.webp` (nastavení),
+`krava.webp` (vyhodnocení), `koza-zepredu.webp` (Můj pokrok).
+U prasete bylo tmavé pozadí odstraněno záplavou od okrajů (tmavé zorničky a nosní dírky zůstaly)
+a lem do 16 px plynule zprůhledněn. Originály (~4000 px PNG) jsou zmenšené na ≤ 900 px
 WebP s průhledností; u kozy z profilu byla odstraněna tmavá aura a uříznutý krk plynule mizí.

@@ -2,9 +2,11 @@
 import kozaZepredu from "../assets/koza-zepredu.webp";
 import kozaProfil from "../assets/koza-profil.webp";
 import krava from "../assets/krava.webp";
+import prase from "../assets/prase.webp";
 import { cx } from "./ui";
 
 const ART = {
+  pig: { src: prase, w: 751, h: 738, alt: "Barevné prasátko s kšiltovkou" },
   goat: { src: kozaZepredu, w: 900, h: 1252, alt: "Barevná koza" },
   goatSide: { src: kozaProfil, w: 740, h: 752, alt: "Barevná koza z profilu" },
   cow: { src: krava, w: 800, h: 913, alt: "Barevná kráva" },

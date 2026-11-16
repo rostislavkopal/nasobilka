@@ -66,7 +66,7 @@ export function Progress({ stats, onPick, onHome }: { stats: Stats; onPick: (id:
         })}
       </ul>
 
-      <Mascot kind="goatSide" className="mx-auto mt-8 w-56 sm:w-64" />
+      <Mascot kind="goat" className="mx-auto mt-8 w-44 sm:w-52" />
     </div>
   );
 }
