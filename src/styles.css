@@ -1,74 +1,156 @@
 @import "tailwindcss";
 
+/*
+ * Design „Matematika hrou – neon“: tmavé indigové pozadí s barevnými záři,
+ * skleněné karty a neonové barvy převzaté z ilustrací zvířat
+ * (magenta, fialová, tyrkysová, oranžová, zlatá).
+ */
 :root {
-  --background: oklch(0.985 0.003 265);
-  --foreground: oklch(0.21 0.034 265);   /* #111827-ish */
-  --card: oklch(1 0 0);
-  --muted: oklch(0.967 0.007 265);
-  --muted-foreground: oklch(0.55 0.04 257);
-  --border: oklch(0.92 0.012 265);
+  color-scheme: dark;
 
-  --brand: oklch(0.546 0.215 262.9);     /* #2563eb */
-  --brand-foreground: oklch(1 0 0);
-  --brand-soft: oklch(0.95 0.03 262);
+  --background: #0c0a1f;
+  --background-2: #151033;
+  --foreground: #f5f2ff;
+  --card: rgba(255, 255, 255, 0.055);
+  --card-solid: #19143a;
+  --muted: rgba(255, 255, 255, 0.07);
+  --muted-foreground: #b0a8d6;
+  --border: rgba(255, 255, 255, 0.11);
 
-  --accent: oklch(0.769 0.165 70.1);     /* #f59e0b */
-  --accent-foreground: oklch(0.21 0.034 265);
+  /* hlavní barva = magenta → fialová → tyrkysová */
+  --brand: #b86bff;
+  --brand-strong: #9b4dff;
+  --brand-foreground: #ffffff;
+  --brand-soft: rgba(184, 107, 255, 0.18);
+  --g-magenta: #ff4fd8;
+  --g-violet: #8b5cf6;
+  --g-cyan: #22d3ee;
+  --g-orange: #ff8a3d;
+  --gradient: linear-gradient(100deg, var(--g-magenta) 0%, var(--g-violet) 50%, var(--g-cyan) 100%);
+  --gradient-warm: linear-gradient(100deg, var(--g-orange) 0%, var(--g-magenta) 55%, var(--g-violet) 100%);
 
-  --success: oklch(0.627 0.17 149);
-  --success-soft: oklch(0.965 0.04 155);
-  --success-foreground: oklch(1 0 0);
+  --success: #3ee6a3;
+  --success-soft: rgba(62, 230, 163, 0.14);
+  --danger: #ff7a93;
+  --danger-soft: rgba(255, 122, 147, 0.14);
+  --warning: #ffc94d;
+  --warning-soft: rgba(255, 201, 77, 0.14);
+  --star: #ffd23f;
+  --star-empty: rgba(255, 255, 255, 0.22);
 
-  --danger: oklch(0.577 0.215 27);
-  --danger-soft: oklch(0.965 0.025 17);
-  --danger-foreground: oklch(1 0 0);
+  /* témata – sytá neonová barva, jemné a střední pozadí */
+  --t-cyan: #22d3ee;   --t-cyan-soft: rgba(34, 211, 238, 0.14);   --t-cyan-mid: rgba(34, 211, 238, 0.26);
+  --t-orange: #ff9b4a;   --t-orange-soft: rgba(255, 155, 74, 0.14);   --t-orange-mid: rgba(255, 155, 74, 0.26);
+  --t-violet: #a98bff; --t-violet-soft: rgba(169, 139, 255, 0.16); --t-violet-mid: rgba(169, 139, 255, 0.28);
+  --t-gold: #ffd23f;  --t-gold-soft: rgba(255, 210, 63, 0.13);  --t-gold-mid: rgba(255, 210, 63, 0.24);
+  --t-pink: #ff5fd2;   --t-pink-soft: rgba(255, 95, 210, 0.14);   --t-pink-mid: rgba(255, 95, 210, 0.26);
 
-  --radius: 1rem;
-  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font: "Nunito Variable", "Nunito", ui-rounded, system-ui, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-card-solid: var(--card-solid);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
-  --color-success-foreground: var(--success-foreground);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
-  --color-danger-foreground: var(--danger-foreground);
-  --radius-card: calc(var(--radius) * 1.5);
-  --radius-btn: var(--radius);
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-star: var(--star);
+  --color-star-empty: var(--star-empty);
+  --color-t-cyan: var(--t-cyan);
+  --color-t-cyan-soft: var(--t-cyan-soft);
+  --color-t-cyan-mid: var(--t-cyan-mid);
+  --color-t-orange: var(--t-orange);
+  --color-t-orange-soft: var(--t-orange-soft);
+  --color-t-orange-mid: var(--t-orange-mid);
+  --color-t-violet: var(--t-violet);
+  --color-t-violet-soft: var(--t-violet-soft);
+  --color-t-violet-mid: var(--t-violet-mid);
+  --color-t-gold: var(--t-gold);
+  --color-t-gold-soft: var(--t-gold-soft);
+  --color-t-gold-mid: var(--t-gold-mid);
+  --color-t-pink: var(--t-pink);
+  --color-t-pink-soft: var(--t-pink-soft);
+  --color-t-pink-mid: var(--t-pink-mid);
+  --font-sans: var(--font);
 }
 
 html, body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body);
+  font-family: var(--font);
   -webkit-font-smoothing: antialiased;
+}
+
+/* „polární záře“ – barevné skvrny za obsahem, pevně za oknem */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20vmax;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40vmax 34vmax at 12% 8%, rgba(255, 79, 216, 0.20), transparent 70%),
+    radial-gradient(38vmax 32vmax at 92% 18%, rgba(34, 211, 238, 0.16), transparent 70%),
+    radial-gradient(44vmax 36vmax at 70% 95%, rgba(139, 92, 246, 0.22), transparent 70%),
+    radial-gradient(30vmax 26vmax at 8% 85%, rgba(255, 138, 61, 0.12), transparent 70%),
+    linear-gradient(180deg, var(--background) 0%, var(--background-2) 100%);
 }
 
 button { cursor: pointer; }
 button:disabled { cursor: default; }
+::selection { background: rgba(255, 79, 216, 0.45); }
 
-.label-caps {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
+/* čísla stejně široká, aby příklady neposkakovaly */
+.nums { font-variant-numeric: tabular-nums; }
+
+/* skleněná karta */
+.glass {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 20px 50px -30px rgba(0, 0, 0, 0.8);
 }
+
+/* text s duhovým přechodem */
+.text-gradient {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* hlavní tlačítko: přechod + svit */
+.btn-primary {
+  background: var(--gradient);
+  background-size: 160% 100%;
+  background-position: 0% 0;
+  color: #fff;
+  box-shadow: 0 10px 30px -10px rgba(255, 79, 216, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  transition: background-position 0.4s ease, box-shadow 0.2s ease, transform 0.1s ease, opacity 0.2s;
+}
+.btn-primary:hover:not(:disabled) {
+  background-position: 100% 0;
+  box-shadow: 0 14px 38px -10px rgba(34, 211, 238, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+.btn-primary:active:not(:disabled) { transform: scale(0.99); }
+.btn-primary:focus-visible { outline: 2px solid var(--g-cyan); outline-offset: 3px; }
+.btn-primary:disabled { opacity: 0.4; box-shadow: none; }
+
+/* záře za ilustracemi zvířat */
+.glow-art { filter: drop-shadow(0 0 40px rgba(255, 79, 216, 0.35)) drop-shadow(0 0 80px rgba(34, 211, 238, 0.18)); }
 
 @keyframes pop {
   0% { transform: scale(1); }
@@ -80,5 +162,26 @@ button:disabled { cursor: default; }
   20%, 60% { transform: translateX(-6px); }
   40%, 80% { transform: translateX(6px); }
 }
+@keyframes star-in {
+  0% { transform: scale(0.2) rotate(-40deg); opacity: 0; }
+  60% { transform: scale(1.35) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); }
+}
+@keyframes rise {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-10px) rotate(-1deg); }
+}
 .anim-pop { animation: pop 0.35s ease-out; }
 .anim-shake { animation: shake 0.4s ease-in-out; }
+.anim-star { animation: star-in 0.6s cubic-bezier(.2,.9,.3,1.4) both; }
+.anim-rise { animation: rise 0.25s ease-out; }
+.anim-bob { animation: bob 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-pop, .anim-shake, .anim-star, .anim-rise, .anim-bob { animation: none; }
+  .btn-primary { transition: none; }
+}

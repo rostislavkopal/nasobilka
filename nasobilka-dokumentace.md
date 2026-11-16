@@ -1,59 +1,59 @@
-# Násobilka – dokumentace webové aplikace
+# Matematika hrou – dokumentace webové aplikace
 
-Webová aplikace pro procvičování malé násobilky (násobení a dělení) pro žáky 1. stupně ZŠ.
+Webová aplikace pro procvičování matematiky 3. třídy ZŠ: násobilka, pamětné sčítání a odčítání,
+přednost operací, převody jednotek délky a slovní úlohy.
 
 ---
 
 ## Část 1 – Uživatelská příručka
 
-### K čemu aplikace slouží
+### Rozcestník
 
-Žák si spustí test o 20 náhodných příkladech. Po odpovědi hned vidí, zda počítal správně.
-Příklady, ve kterých chyboval, se mu ještě v rámci testu vrátí k opravě. Na konci testu se zobrazí
-vyhodnocení.
+Nahoře úvodní pás s barevnou kozou a tlačítkem „Jdeme počítat“, pod ním pět dlaždic s tématy
+a pás s nasbíranými hvězdičkami. V hlavičce je navigace **Procvičování** / **Můj pokrok**.
+Stránka **Můj pokrok** ukazuje u každého tématu počet tréninků, nejlepší výsledek a hvězdičky.
 
-Znaménka odpovídají české škole: násobení `·` (např. `7 · 8`), dělení `:` (např. `56 : 7`).
+| Téma | Co se procvičuje | Volby |
+| --- | --- | --- |
+| **Násobení a dělení** | `7 · 8`, `56 : 7`, větší příklady `13 · 4`, `84 : 4` | násobení / dělení / obojí; do 5, do 10, větší příklady |
+| **Sčítání a odčítání** | `57 + 34`, `83 − 45` (dvojciferná čísla, výsledek do 100) | sčítání / odčítání / obojí; bez přechodu, s přechodem, obojí |
+| **Přednosti a závorky** | `75 + 56 : 8`, `(45 + 9) : (12 − 6)` | bez závorek, se závorkami, obojí |
+| **Převody jednotek** | `3 m = ? cm`, `400 cm = ? m`, `4 dm 5 cm = ? cm`, `45 cm = ? dm ? cm` | jedna jednotka / smíšené / obojí; sousední jednotky, nebo všemi |
+| **Slovní úlohy** | krátký příběh → zápis → výpočet → odpověď | jednoduché / složené (dva početní kroky) / obojí |
 
-### Úvodní obrazovka (nastavení)
-
-1. **Režim testu**
-   - **A – Výběr z 5 návrhů:** u příkladu je pět nabízených výsledků, žák klikne na správný.
-   - **B – Psaní na klávesnici:** žák výsledek napíše (číselná tlačítka na obrazovce nebo klávesnice),
-     tlačítkem ⌫ maže poslední číslici a tlačítkem ✓ (nebo Enter) odpověď potvrdí.
-2. **Počítáme:** násobení, dělení, nebo obojí (alespoň jedna volba musí být zapnutá).
-3. **Rozsah:** činitelé do 5 (snadnější) nebo do 10 (celá malá násobilka).
-4. Tlačítko **Spustit test (20 příkladů)**.
+Po kliknutí na dlaždici se otevře nastavení: **Jak budeš odpovídat?** (napsat výsledek / vybrat
+odpověď), **Kolik příkladů?** (10 / 20) a volby tématu. Nastavení se pamatuje.
 
 ### Průběh testu
 
-- Nahoře je název testu a průběžné skóre.
-- Vlevo je postup (kolikátý příklad, ukazatel průběhu, počet správných, chybných a zbývajících).
-- Uprostřed je velký příklad, pod ním odpovědi podle zvoleného režimu.
-- Po odpovědi se výsledek krátce zvýrazní zeleně (správně) nebo červeně (chyba) a zobrazí se
-  správný výsledek; pak aplikace sama přejde na další příklad.
-- **Oprava chyb v rámci testu:** chybně spočítaný příklad se vrátí o 3 příklady později (nebo na
-  konec testu) s označením „Oprava chyby“. Vrací se tak dlouho, dokud ho žák nespočítá správně;
-  test tedy skončí, až jsou všechny chyby opravené. Počet příkladů v postupu se o opakování zvýší.
-- Pod příkladem se průběžně vypisuje seznam příkladů, ve kterých žák chyboval; opravené jsou
-  zelené s „✓ opraveno“.
-- Tlačítkem **Ukončit test** se lze vrátit do nastavení.
+- Nahoře je „Příklad 3 z 10“, ukazatel průběhu a pět hvězdiček série.
+- Příklad je uprostřed (`5 · 9 = ?`), pod ním políčko pro výsledek a tlačítko **Zkontrolovat**
+  (nebo Enter), případně návrhy odpovědí.
+- **Jednotky:** za políčkem je vždy štítek jednotky (`cm`, `dm` …). U smíšených převodů jsou
+  políčka dvě; Enter s prázdným políčkem přesune kurzor do něj.
+- **Slovní úlohy** mají tři kroky (ukazatel 1. Zápis → 2. Výpočet → 3. Odpověď):
+  1. výběr správného zápisu (výrazu) ze čtyř možností,
+  2. výpočet – podle zvoleného režimu výběrem nebo psaním,
+  3. výběr správné odpovědi celou větou.
+  Hotové kroky zůstávají vidět pod zadáním. Chyba v libovolném kroku znamená chybnou úlohu.
+- **Potřebuji nápovědu** ukáže jemnou nápovědu, která neprozradí výsledek.
+- **Zpětná vazba:**
+  - správně → zelené „Skvěle!“ a po chvíli další příklad,
+  - první chyba → „Ještě to není ono. Zkus to znovu!“ s nápovědou; žák odpověď opraví hned,
+  - druhá chyba → správné řešení s postupem „Jak na to“ a tlačítko **Pokračovat**;
+    takový příklad se vrátí o 3 příklady později s označením „Oprava“.
+- **Hvězdičky:** pět hvězdiček nahoře se plní správnými odpověďmi napoprvé v řadě; po zaplnění
+  žák získá hvězdičku (pohár). Chyba sérii vynuluje.
 
 ### Vyhodnocení
 
-- Velké skóre (např. „17 z 20“) a mřížka 20 polí – zelená = správně, červená = chyba.
-  Skóre se počítá z **prvního pokusu** u každého příkladu; opravy se do skóre nezapočítávají.
-- Seznam špatně spočítaných příkladů se správným výsledkem i s odpovědí, kterou žák zadal.
-- Tlačítka:
-  - **Nový test** – nových 20 náhodných příkladů se stejným nastavením.
-  - **Nastavení** – návrat na úvodní obrazovku.
+Skóre „správně napoprvé“, získané hvězdičky, mřížka příkladů, seznam příkladů k zopakování.
+Tlačítka **Procvičovat znovu**, **Změnit nastavení** a odkaz zpět na rozcestník.
 
-### Ovládání klávesnicí (režim psaní)
+### Ovládání klávesnicí
 
-| Klávesa | Akce |
-| --- | --- |
-| 0–9 | napsat číslici (max. 3 číslice) |
-| Backspace | smazat poslední číslici |
-| Enter | potvrdit odpověď |
+Políčka jsou běžné vstupy (na mobilu se otevře číselná klávesnice). Enter = Zkontrolovat,
+Tab přepíná políčka, po ukázání řešení je zaměřené tlačítko Pokračovat (Enter).
 
 ---
 
@@ -61,91 +61,111 @@ Znaménka odpovídají české škole: násobení `·` (např. `7 · 8`), dělen
 
 ### Technologie
 
-- React 19, Vite 7, TypeScript – statická SPA (build do `dist/`).
-- Tailwind CSS v4; design tokeny (barvy, písma, poloměry) jsou v `src/styles.css`
-  jako CSS proměnné v `oklch` a mapované v bloku `@theme inline`.
-- Bez backendu – celý stav je v paměti komponenty, nic se neukládá.
+React 19, Vite 7, TypeScript, Tailwind CSS v4, ikony `lucide-react`, písmo Nunito
+(`@fontsource-variable/nunito`, přibalené), testy `vitest`.
+Statická SPA bez backendu. Hvězdičky, nejlepší výsledky a nastavení se ukládají do `localStorage`
+(čtení i zápis v `try/catch` – aplikace funguje i bez úložiště).
 
-### Struktura souborů
+```bash
+npm run dev     # vývojový server
+npm test        # testy generátorů a reduceru
+npm run build   # kontrola typů + build do dist/
+```
+
+### Struktura
 
 ```
 src/
-  lib/nasobilka.ts     doménová logika (generování, vyhodnocení, opakování)
-  App.tsx              celá aplikace: setup / quiz / results
-  main.tsx             vstupní bod React
-index.html             HTML shell, meta tagy, načtení fontů
-  styles.css           design systém (tokeny brand/success/danger, fonty)
+  lib/
+    core.ts        společné typy (Problem, Step, Choice), náhoda, čeština (plural), návrhy odpovědí, fronta opakování
+    muldiv.ts      násobení a dělení
+    addsub.ts      sčítání a odčítání do 100
+    expr.ts        strom výrazu, vyhodnocení krok za krokem, šablony přednosti operací
+    units.ts       převody m / dm / cm / mm
+    word.ts        šablony slovních úloh → tři kroky
+    topics.ts      registr témat (volby, výchozí nastavení, délka testu, generátor)
+    stats.ts       localStorage: hvězdičky, nejlepší výsledek, nastavení
+    generators.test.ts
+  quiz/
+    useQuiz.ts     reducer testu + automatický posun po správné odpovědi
+    useQuiz.test.ts
+  components/
+    Dashboard.tsx  rozcestník: úvodní pás, dlaždice témat, pás s hvězdičkami
+    Progress.tsx   stránka „Můj pokrok“
+    Setup.tsx      nastavení tématu (generické podle OptionGroup)
+    Quiz.tsx       průběh testu: rovnost, vstupy / návrhy, kroky slovní úlohy, nápověda, zpětná vazba
+    Results.tsx    vyhodnocení
+    Art.tsx        ilustrace zvířat (src/assets/*.webp) a logo
+    ui.tsx         Header, Panel, OptionButton, StarRow, barvy a ikony témat
+  App.tsx          obrazovky hub → setup → test (→ vyhodnocení)
 ```
 
-### Doménový model (`src/lib/nasobilka.ts`)
+### Doménový model
+
+Každý příklad je `Problem` s jedním nebo více kroky (`Step`):
 
 ```ts
-type Mode = "choice" | "typing";
-type Operation = "mul" | "div";
-
-interface Problem {
-  id: string;        // uuid
-  a: number; b: number;   // základní činitelé
-  op: Operation;
-  left: number; right: number;  // zobrazené operandy
-  answer: number;    // správný výsledek
-  options: number[]; // 5 návrhů (obsahuje answer), zamíchané
-  retry: number;     // 0 = původní příklad, 1+ = opakování po chybě
+interface Step {
+  title?: string;      // „Zápis“ / „Výpočet“ / „Odpověď“ (slovní úlohy)
+  prompt: string;      // pokyn nad odpověďmi
+  left?: string;       // levá strana rovnosti: „75 + 56 : 8“, „4 dm 5 cm“
+  slots: Slot[];       // políčka pro psaní, Slot = { suffix?: "cm" }; prázdné = jen výběr
+  answer: number[];    // správné hodnoty políček
+  choices: Choice[];   // návrhy { label, correct }
+  hint: string;        // jemná nápověda bez výsledku
+  explain: string[];   // celý postup po druhé chybě
+  done: string;        // shrnutí kroku po dokončení
 }
-
-interface Attempt { problem: Problem; given: number | null; correct: boolean }
+interface Problem { id; key; topic; tag; story?; steps: Step[]; summary; retry }
 ```
 
-Funkce:
+Generátory jsou čisté funkce a zaručují:
 
-- `createProblem({ operations, maxFactor })` – náhodný příklad.
-  - Násobení: `a · b`, výsledek `a*b`.
-  - Dělení: vygeneruje se `a · b`, zobrazí se `(a*b) : b`, výsledek `a` → dělení vždy beze zbytku.
-- `buildOptions()` – 5 unikátních kladných celých čísel včetně správného výsledku; distraktory
-  vznikají typickými chybami (sousední násobek, záměna činitele, ±1…±10).
-- `createTest(opts, count = 20)` – sada 20 příkladů; duplicity (stejná dvojice operandů a operace)
-  se odfiltrují, po 40× count pokusech se doplní bez kontroly (pojistka proti nekonečné smyčce).
-- `retryOf(p)` – nová instance chybného příkladu (nové `id`, znovu zamíchané možnosti, `retry + 1`).
-- `scheduleRetry(problems, index, p)` – vloží `retryOf(p)` do fronty `RETRY_GAP` (= 3) pozic za
-  aktuální příklad, nebo na konec.
-- `opSymbol(op)` – `·` / `:`.
-- `formatProblem(p)` – textová podoba `„7 · 8“` / `„56 : 7“`.
-- `QUESTIONS_PER_TEST = 20`, `OPTION_COUNT = 5`, `RETRY_GAP = 3` – konstanty pro případnou změnu délky testu.
+- **dělení vždy beze zbytku** – dělenec vzniká jako součin dělitele a podílu,
+- **žádné záporné ani necelé mezivýsledky** – `expr.ts` vyhodnocuje strom výrazu operaci po
+  operaci a neplatné výrazy zahodí (`retryUntil`); výsledky a mezivýsledky jsou v rozsahu 0–100,
+- **sčítání a odčítání:** obě čísla dvojciferná, součet ≤ 100, rozdíl ≥ 1, přechod desítky podle volby,
+- **jednotky:** čísla do 1000; ve složeném převodu je menší jednotka vždy menší než 1 větší jednotka,
+- **distraktory** vycházejí z typických chyb (zapomenutý přechod, počítání zleva doprava bez
+  ohledu na přednost, posun o řád u jednotek, chybná operace ve slovní úloze).
 
-### Stavový automat UI (`src/App.tsx`)
+**Pestrost příkladů** (`uniqueSet` v `core.ts`):
+- v jednom testu se žádný příklad neopakuje,
+- příklady z posledních tří testů daného tématu (`localStorage`, `nasobilka.recent.v1`) se losují
+  jen tehdy, když jiné nezbývají,
+- „rodiny“ (`Problem.family`: řada násobilky, šablona výrazu, dvojice jednotek, typ příběhu) se
+  rozkládají rovnoměrně – nejvýš ⌈počet příkladů / počet rodin⌉ z jedné,
+- u násobilky padají triviální činitele 1 a 10 jen asi v 10 % případů,
+- slovní úlohy mají 31 typů příběhů (22 jednoduchých, 9 složených).
 
-```
-setup ──startTest()──▶ quiz ──poslední odpověď──▶ results
-  ▲                     │                          │
-  └──── onHome() ◀──────┴──────── startTest() ───────┘
-```
+`generators.test.ts` tisíckrát generuje každý typ a nezávisle ověřuje výsledek (výrazy přepočítá
+JavaScript, jednotky se převedou na milimetry).
 
-Klíčový stav: `phase`, `mode`, `operations`, `maxFactor`, `problems`, `index`, `attempts`,
-`typed`, `feedback`.
+### Stav testu (`useQuiz.ts`)
 
-`submit(value)`:
-1. ignoruje volání, když už běží zpětná vazba (`feedback !== null`) – ochrana proti dvojkliku;
-2. zapíše `Attempt`; při chybě zařadí opakování příkladu přes `scheduleRetry()`;
-3. nastaví `feedback` (zobrazí správný výsledek, obarví tlačítka);
-4. po 650 ms (správně) / 1400 ms (chyba) přejde na další příklad, nebo na `results`.
+`useReducer` s akcemi `type`, `submitTyped`, `pick`, `continue`. Zpětná vazba má tři stavy:
+`correct` (efekt za 900 ms odešle `continue`), `retry` (první chyba, žák opravuje) a `reveal`
+(druhá chyba, čeká se na Pokračovat). Při uzavření příkladu se zapíše `Attempt` (správně = všechny
+kroky napoprvé), aktualizuje série a hvězdičky (`streak % 5 === 0`) a příklad, u kterého se
+ukázalo řešení, se zařadí k opakování (`scheduleRetry`).
+Skóre se počítá jen z prvních pokusů (`retry === 0`).
 
-Skóre (hlavička, postup, vyhodnocení) se počítá jen z pokusů s `retry === 0`; opakování slouží
-k procvičení a v postupu zvyšují jen celkový počet příkladů.
+### Přidání nového tématu
 
-Klávesnice: `useEffect` s posluchačem `keydown` je aktivní pouze ve fázi `quiz` a režimu `typing`.
+1. Napsat generátor `createXyzTest(settings, size): Problem[]` v `src/lib/` (volby číst přes `expand()`).
+2. Přidat položku do `TOPICS` v `topics.ts` (texty dlaždice, volby, výchozí hodnoty).
+3. Přidat id do typu `TopicId` a barvu/ikonu do `TOPIC_STYLE` v `components/ui.tsx`.
 
 ### Design systém
 
-Tokeny v `src/styles.css`: `--brand` (modrá #2563eb), `--accent` (žlutá #f59e0b),
-`--success`, `--danger` a jejich `-soft`/`-foreground` varianty, `--font-display`
-(Space Grotesk – čísla) a `--font-body` (Inter). V komponentách se používají výhradně
-sémantické třídy (`bg-brand`, `text-danger`, `border-foreground`), nikoli pevné barvy.
+Tmavý neonový motiv odvozený z ilustrací zvířat. Tokeny v `src/styles.css`:
+`--background` (tmavě indigová) s „polární září“ (`body::before`, barevné radiální přechody),
+`--card` / třída `.glass` (poloprůhledné skleněné karty s rozostřením), hlavní přechod `--gradient`
+(magenta → fialová → tyrkysová) pro `.btn-primary` a `.text-gradient`, barvy témat
+`--t-cyan|orange|violet|gold|pink` (+ `-soft`, `-mid`), `--success`, `--danger`, `--warning`, `--star`.
+Písmo Nunito. Animace `anim-pop`, `anim-shake`, `anim-star`, `anim-rise`, `anim-bob` respektují
+`prefers-reduced-motion`.
 
-Zásady čitelnosti: čísla min. ~48 px v příkladu, tlačítka odpovědí ≥ 72 px vysoká,
-vysoký kontrast, 2px obrysy.
-
-### Možná rozšíření
-
-- Uložení historie výsledků (Lovable Cloud / databáze) a profily žáků.
-- Volba konkrétní řady (např. jen „· 7“), časomíra, zvuková zpětná vazba.
-- Tisk chybníku pro učitele.
+**Ilustrace** (`src/assets/`): `koza-zepredu.webp` (rozcestník), `krava.webp` (vyhodnocení),
+`koza-profil.webp` (nastavení, Můj pokrok). Originály (~4000 px PNG) jsou zmenšené na ≤ 900 px
+WebP s průhledností; u kozy z profilu byla odstraněna tmavá aura a uříznutý krk plynule mizí.

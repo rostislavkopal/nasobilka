@@ -1,6 +1,7 @@
-# Násobilka
+# Matematika hrou (Násobilka)
 
-Procvičování malé násobilky (násobení a dělení). Statická SPA – React 19, Vite 7, Tailwind CSS v4.
+Procvičování matematiky pro 3. třídu: násobilka, sčítání a odčítání do 100, přednost operací,
+jednotky délky a slovní úlohy. Statická SPA – React 19, Vite 7, Tailwind CSS v4, lucide-react.
 Podrobná dokumentace: [nasobilka-dokumentace.md](nasobilka-dokumentace.md).
 
 ## Vývoj
@@ -8,6 +9,7 @@ Podrobná dokumentace: [nasobilka-dokumentace.md](nasobilka-dokumentace.md).
 ```bash
 npm install
 npm run dev      # http://localhost:5173
+npm test         # testy generátorů příkladů a stavu testu
 npm run build    # výstup do dist/
 ```
 
