@@ -117,7 +117,7 @@ export function Header({ page, onNavigate }: { page: Page; onNavigate: (p: Page)
     </button>
   );
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-background/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-border bg-background/70 pt-[env(safe-area-inset-top)] backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
         <button onClick={() => onNavigate("practice")} className="flex items-center gap-3 text-left" aria-label="Na rozcestník">
           <Logo className="size-11 shrink-0" />
